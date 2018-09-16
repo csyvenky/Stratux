@@ -1,0 +1,228 @@
+[app/ui]
+version = 6.6.2
+modtime = 1500004888.774274000
+
+[app/launcher]
+version = 6.6.2
+modtime = 1500004888.776735000
+
+[indexes/stratux]
+owner = admin
+version = 7.1.0
+modtime = 1528581284.021022000
+
+[props/Stratux]
+owner = admin
+version = 7.0.2
+modtime = 1520224809.969743000
+
+[props/stratux]
+owner = admin
+version = 7.0.2
+modtime = 1520224675.777584000
+
+[inputs/monitor%3A%2F%2F%2FUsers%2Fcory%2FDocuments%2FOneDrive%2FDocuments%2FPersonal%2FData%2Fstratux.log]
+owner = admin
+version = 7.1.2
+modtime = 1536417600.859008000
+
+[props/Stratux/EXTRACT-icao_addr]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520388790.503229000
+
+[props/Stratux/EXTRACT-registration]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520390916.671143000
+
+[props/Stratux/EXTRACT-emitter]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520394984.472544000
+
+[props/Stratux/EXTRACT-onground]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520395004.858827000
+
+[props/Stratux/EXTRACT-tail]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520396111.281590000
+
+[props/Stratux/EXTRACT-signal]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520395547.574961000
+
+[props/Stratux/EXTRACT-squawk]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520395712.859287000
+
+[props/Stratux/EXTRACT-targettype]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520395771.236028000
+
+[props/Stratux/EXTRACT-positionvalid]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520396347.962642000
+
+[props/Stratux/EXTRACT-altitude]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520396735.058750000
+
+[props/Stratux/EXTRACT-latitude]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520396677.491838000
+
+[props/Stratux/EXTRACT-longitude]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520396691.930129000
+
+[props/Stratux/EXTRACT-gnssdifffrombaroalt]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520396949.338394000
+
+[props/Stratux/EXTRACT-altisgnss]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520397278.632934000
+
+[props/Stratux/EXTRACT-speed]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520397285.860632000
+
+[props/Stratux/EXTRACT-track]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520397293.131686000
+
+[props/Stratux/EXTRACT-speedvalid]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520397526.287386000
+
+[props/Stratux/EXTRACT-vvel]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520397533.584888000
+
+[props/Stratux/EXTRACT-prioritystatus]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520397808.212332000
+
+[props/Stratux/EXTRACT-lastgnssdiffalt]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520398157.812727000
+
+[props/Stratux/EXTRACT-age]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520398192.117505000
+
+[props/Stratux/EXTRACT-agelastalt]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520398201.231271000
+
+[props/Stratux/EXTRACT-bearing]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520398426.532978000
+
+[props/Stratux/EXTRACT-distance]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520398435.116902000
+
+[props/Stratux/EXTRACT-extrapolatedposition]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520398442.237745000
+
+[eventtypes/json_log]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.0.2
+modtime = 1520727582.564963000
+
+[views/stratux]
+owner = admin
+version = 7.1.2
+modtime = 1535928557.493859000
+
+[datamodels/Stratux_Table]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.1.0
+modtime = 1526928543.190849000
+
+[models/Stratux_Table]
+access = read : [ * ], write : [ admin, power ]
+export = none
+owner = admin
+version = 7.1.0
+modtime = 1526928543.222745000

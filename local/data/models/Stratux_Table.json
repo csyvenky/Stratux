@@ -1,0 +1,26 @@
+{
+    "modelName": "Stratux_Table",
+    "displayName": "Stratux Table",
+    "description": "",
+    "objectSummary": {
+        "Event-Based": 0,
+        "Transaction-Based": 0,
+        "Search-Based": 1
+    },
+    "objects": [
+        {
+            "objectName": "RootObject",
+            "displayName": "Stratux_Table",
+            "parentName": "BaseSearch",
+            "comment": "",
+            "fields": [],
+            "calculations": [],
+            "constraints": [],
+            "lineage": "RootObject",
+            "baseSearch": "((index=\"stratux\") (sourcetype=\"Stratux\")) | fields \"_time\", \"altitude\", \"bearing\", \"eventtype\", \"onground\", \"speed\", \"squawk\", \"tail\", \"track\", \"vvel\" | search eventtype=json_log"
+        }
+    ],
+    "objectNameList": [
+        "RootObject"
+    ]
+}

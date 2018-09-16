@@ -1,12 +1,12 @@
 # Stratux
-Splunk App to process data from Stratux ADS-B Receiver
+Splunk App to process data from Stratux ADS-B Receiver.
 
-This is not the codebase for the ADS-B receiver Stratux, that can be found [here](https://github.com/cyoung/stratux).
+This is __not__ the codebase for the ADS-B receiver Stratux, that can be found [here](https://github.com/cyoung/stratux).
 
 *This is a work in progress.*
 
 # Setup
-1. Create an index on your Splunk instance, I called mine "*stratux*".
+1. Create an index on your Splunk instance, I called mine "*stratux*". If you plan to store and process a lengthy timeframe of data then this should be set to 3-5 GB in size.
 2. Pull your Stratux Receiver logs.
     ```
     scp pi@192.168.10.1:/var/log/stratux.log <directory_of_your_inputs.conf_monitor>.
