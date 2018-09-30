@@ -1,6 +1,6 @@
 <form>
   <label>Stratux</label>
-  <fieldset submitButton="false" autoRun="true">
+  <fieldset autoRun="true" submitButton="false">
     <input type="time" token="field1">
       <label></label>
       <default>
@@ -17,9 +17,10 @@
           <query>index=stratux eventtype=json_log 
 | xmlkv 
 | dedup tail 
-| eval maxSpeed = max(speed) 
-| table icao_addr,tail,maxSpeed, 
-| sort - maxSpeed</query>
+| eval maxSpeed = max(speed)
+| rename maxSpeed as "Max Speed" icao_addr as "ICAO Address" tail as "Tail"
+| table "ICAO Address",Tail,"Max Speed"
+| sort - "Max Speed"</query>
           <earliest>$field1.earliest$</earliest>
           <latest>$field1.latest$</latest>
           <sampleRatio>1</sampleRatio>
@@ -99,7 +100,7 @@
   </row>
   <row>
     <panel>
-      <title>Location</title>
+      <title>Geo Location</title>
       <map>
         <search>
           <query>index=stratux eventtype=json_log longitude!=0 latitude!=0
@@ -119,10 +120,10 @@
         <option name="mapping.choroplethLayer.showBorder">1</option>
         <option name="mapping.data.maxClusters">80</option>
         <option name="mapping.legend.placement">bottomright</option>
-        <option name="mapping.map.center">(51.18,-114)</option>
+        <option name="mapping.map.center">(28.46,-81.37)</option>
         <option name="mapping.map.panning">1</option>
         <option name="mapping.map.scrollZoom">0</option>
-        <option name="mapping.map.zoom">9</option>
+        <option name="mapping.map.zoom">12</option>
         <option name="mapping.markerLayer.markerMaxSize">100</option>
         <option name="mapping.markerLayer.markerMinSize">10</option>
         <option name="mapping.markerLayer.markerOpacity">0.8</option>
@@ -132,7 +133,6 @@
         <option name="mapping.tileLayer.tileOpacity">1</option>
         <option name="mapping.tileLayer.url">http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png</option>
         <option name="mapping.type">marker</option>
-        <option name="refresh.display">progressbar</option>
         <option name="trellis.enabled">0</option>
         <option name="trellis.scales.shared">1</option>
         <option name="trellis.size">medium</option>
@@ -154,8 +154,10 @@
         </search>
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
         <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
-        <option name="charting.axisTitleX.visibility">collapsed</option>
-        <option name="charting.axisTitleY.visibility">collapsed</option>
+        <option name="charting.axisTitleX.text">Speed Group</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.text">Count</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
         <option name="charting.axisTitleY2.visibility">visible</option>
         <option name="charting.axisX.abbreviation">none</option>
         <option name="charting.axisX.scale">linear</option>
@@ -200,7 +202,9 @@
         </search>
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
         <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.text">Timeline</option>
         <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.text">Altitude</option>
         <option name="charting.axisTitleY.visibility">visible</option>
         <option name="charting.axisTitleY2.visibility">visible</option>
         <option name="charting.axisX.abbreviation">none</option>
@@ -249,7 +253,9 @@
         <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
         <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
         <option name="charting.axisLabelsX.majorUnit">10</option>
+        <option name="charting.axisTitleX.text">Speed</option>
         <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.text">Altitude</option>
         <option name="charting.axisTitleY.visibility">visible</option>
         <option name="charting.axisTitleY2.visibility">visible</option>
         <option name="charting.axisX.abbreviation">none</option>
@@ -291,46 +297,64 @@
         <search>
           <query>index=stratux eventtype=json_log tail=* speed&gt;=250 altitude&gt;0 AND altitude&lt;=10000 
 | eval airline=case(
-    match(tail, "AAL") == true(), "American",
-    match(tail, "ACA") == true(), "Air Canada",
-    match(tail, "AIC") == true(), "Air India",
-    match(tail, "AFR") == true(), "Air France",
-    match(tail, "ANT") == true(), "Air North",
-    match(tail, "ASP") == true(), "Air Sprint",
-    match(tail, "ASA") == true(), "Alaska",
-    match(tail, "BAW") == true(), "British",
-    match(tail, "CJT") == true(), "Cargojet",
-    match(tail, "CLX") == true(), "Cargolux",
-    match(tail, "CPA") == true(), "Cathay Pacific",
-    match(tail, "DAL") == true(), "Delta",
-    match(tail, "DLH") == true(), "Lufthansa",
-    match(tail, "EIN") == true(), "Aer Lingus",
-    match(tail, "ENY") == true(), "American Eagle",
-    match(tail, "EVA") == true(), "Eva",
-    match(tail, "FLE") == true(), "Flair",
-    match(tail, "FDX") == true(), "FedEx",
-    match(tail, "ICE") == true(), "Iceland Air",
-    match(tail, "JZA") == true(), "Air Canada Jazz",
-    match(tail, "KAL") == true(), "Korean",
-    match(tail, "KLM") == true(), "KLM",
-    match(tail, "LDR") == true(), "Aero Lider",
-    match(tail, "NAX") == true(), "Norwegian",
-    match(tail, "QXE") == true(), "Horizon Air",
-    match(tail, "ROU") == true(), "Air Canada Rouge",
-    match(tail, "SKW") == true(), "SkyWest",
-    match(tail, "SKW") == true(), "Sunwing",
-    match(tail, "THY") == true(), "Turkish",
-    match(tail, "UAL") == true(), "United",
-    match(tail, "UPS") == true(), "UPS",
-    match(tail, "VIR") == true(), "Virgin Atlantic",
-    match(tail, "WEN") == true(), "WestJet Encore",
-    match(tail, "WJA") == true(), "WestJet",
-    match(tail, "WOW") == true(), "WOW")
+	match(tail, "AAL") == true(), "American",
+	match(tail, "DAL") == true(), "Delta",
+	match(tail, "UAL") == true(), "United",
+	match(tail, "CSN") == true(), "China Southern",
+	match(tail, "SWA") == true(), "Southwest",
+	match(tail, "CES") == true(), "China Eastern",
+	match(tail, "CCA") == true(), "Air China",
+	match(tail, "SKW") == true(), "Sky West",
+	match(tail, "ASA") == true(), "Alaska",
+	match(tail, "JBU") == true(), "JetBlue",
+	match(tail, "QTR") == true(), "Qatar",
+	match(tail, "UAE") == true(), "Emirates",
+	match(tail, "FDX") == true(), "FedEx",
+	match(tail, "ACA") == true(), "Air Canada",
+	match(tail, "CHH") == true(), "Hainan",
+	match(tail, "IGO") == true(), "IndiGo",
+	match(tail, "THY") == true(), "Turkish",
+	match(tail, "ANA") == true(), "All Nippon",
+	match(tail, "UPS") == true(), "UPS",
+	match(tail, "CSZ") == true(), "Shenzhen Air",
+	match(tail, "DLH") == true(), "Lufthansa",
+	match(tail, "BAW") == true(), "British Airways",
+	match(tail, "JAL") == true(), "Japan Airlines",
+	match(tail, "CPA") == true(), "Cathay Pacific",
+	match(tail, "AFR") == true(), "Air France",
+	match(tail, "CXA") == true(), "Xiamen",
+	match(tail, "NKS") == true(), "Spirit Wings",
+	match(tail, "KAL") == true(), "Korean Air Lines",
+	match(tail, "SIA") == true(), "Singapore Airlines",
+	match(tail, "RPA") == true(), "Republic Airline",
+	match(tail, "CDG") == true(), "Shandong",
+	match(tail, "QFA") == true(), "Qantas",
+	match(tail, "AFL") == true(), "Aeroflot",
+	match(tail, "CSC") == true(), "Si Chuan Airlines",
+	match(tail, "WJA") == true(), "WestJet",
+	match(tail, "JAI") == true(), "Jet Airways",
+	match(tail, "VOZ") == true(), "Virgin Australia",
+	match(tail, "GIA") == true(), "Garuda Indonesia",
+	match(tail, "ENY") == true(), "Envoy Air",
+	match(tail, "AXM") == true(), "AirAsia",
+	match(tail, "KLM") == true(), "KLM",
+	match(tail, "EJA") == true(), "NetJets",
+	match(tail, "AAY") == true(), "Allegiant",
+	match(tail, "FFT") == true(), "Frontier",
+	match(tail, "JIA") == true(), "PSA Airlines",
+	match(tail, "ABX") == true(), "ABX Air",
+	match(tail, "GTI") == true(), "Atlas Air",
+	match(tail, "ROU") == true(), "Air Canada Rouge",
+	match(tail, "CMP") == true(), "Copa Airlines",
+	match(tail, "TCX") == true(), "Thomas Cook",
+	match(tail, "XOJ") == true(), "XOJet")
 | outlier 
-| stats max(speed) as Max, avg(speed) as Average by airline 
+| stats max(speed) as Max, avg(speed) as Average by airline
 | eval Average = round(Average) 
 | eval SpeedOverLimit = round(Average - 250) 
-| sort - Max, Average, SpeedOverLimit</query>
+| sort - Max, Average, SpeedOverLimit
+| rename airline as "Airline"
+| rename SpeedOverLimit as "Avg. Speed Over"</query>
           <earliest>$field1.earliest$</earliest>
           <latest>$field1.latest$</latest>
           <sampleRatio>1</sampleRatio>
@@ -340,6 +364,7 @@
         <option name="charting.axisLabelsY.majorUnit">50</option>
         <option name="charting.axisLabelsY2.majorUnit">1</option>
         <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.text">Count</option>
         <option name="charting.axisTitleY.visibility">visible</option>
         <option name="charting.axisTitleY2.text">Speed Over the Limit</option>
         <option name="charting.axisTitleY2.visibility">visible</option>
@@ -355,7 +380,7 @@
         <option name="charting.chart.bubbleMinimumSize">10</option>
         <option name="charting.chart.bubbleSizeBy">area</option>
         <option name="charting.chart.nullValueMode">gaps</option>
-        <option name="charting.chart.overlayFields">SpeedOverLimit</option>
+        <option name="charting.chart.overlayFields">"Avg. Speed Over"</option>
         <option name="charting.chart.showDataLabels">all</option>
         <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
         <option name="charting.chart.stackMode">default</option>
@@ -366,6 +391,54 @@
         <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
         <option name="charting.legend.mode">standard</option>
         <option name="charting.legend.placement">right</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </chart>
+    </panel>
+  </row>
+  <row>
+    <panel>
+      <title>Top-25 by Tail</title>
+      <chart>
+        <search>
+          <query>index=stratux eventtype=json_log tail=* 
+| sort - count 
+| top limit=25 tail
+| rename tail as "Tail" count as "Count"</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">none</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">none</option>
         <option name="charting.lineWidth">2</option>
         <option name="refresh.display">progressbar</option>
         <option name="trellis.enabled">0</option>
