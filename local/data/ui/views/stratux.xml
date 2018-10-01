@@ -182,6 +182,7 @@
         <option name="charting.legend.mode">standard</option>
         <option name="charting.legend.placement">none</option>
         <option name="charting.lineWidth">2</option>
+        <option name="charting.seriesColors">[0x05668D,0x028090,0x00A896,0x02C39A,0xF0F3BD]</option>
         <option name="refresh.display">progressbar</option>
         <option name="trellis.enabled">0</option>
         <option name="trellis.scales.shared">1</option>
@@ -259,10 +260,11 @@
         <option name="charting.axisTitleY.visibility">visible</option>
         <option name="charting.axisTitleY2.visibility">visible</option>
         <option name="charting.axisX.abbreviation">none</option>
-        <option name="charting.axisX.minimumNumber">80</option>
+        <option name="charting.axisX.maximumNumber">400</option>
+        <option name="charting.axisX.minimumNumber">60</option>
         <option name="charting.axisX.scale">linear</option>
         <option name="charting.axisY.abbreviation">none</option>
-        <option name="charting.axisY.maximumNumber">10000</option>
+        <option name="charting.axisY.maximumNumber">11000</option>
         <option name="charting.axisY.scale">linear</option>
         <option name="charting.axisY2.abbreviation">none</option>
         <option name="charting.axisY2.enabled">0</option>
@@ -334,6 +336,7 @@
 	match(tail, "WJA") == true(), "WestJet",
 	match(tail, "JAI") == true(), "Jet Airways",
 	match(tail, "VOZ") == true(), "Virgin Australia",
+	match(tail, "VIR") == true(), "Virgin Atlantic",
 	match(tail, "GIA") == true(), "Garuda Indonesia",
 	match(tail, "ENY") == true(), "Envoy Air",
 	match(tail, "AXM") == true(), "AirAsia",
@@ -347,7 +350,15 @@
 	match(tail, "ROU") == true(), "Air Canada Rouge",
 	match(tail, "CMP") == true(), "Copa Airlines",
 	match(tail, "TCX") == true(), "Thomas Cook",
-	match(tail, "XOJ") == true(), "XOJet")
+	match(tail, "XOJ") == true(), "XOJet",
+	match(tail, "SIL") == true(), "Silver Airways",
+  	match(tail, "TPU") == true(), "Trans American",
+	match(tail, "AVA") == true(), "Avianca",
+	match(tail, "LPE") == true(), "Lan Peru",
+	match(tail, "GJS") == true(), "GoJet",
+	match(tail, "TFL") == true(), "Tui",
+	match(tail, "EIN") == true(), "Aer Lingus",
+	match(tail, "EDV") == true(), "Endeavor")
 | outlier 
 | stats max(speed) as Max, avg(speed) as Average by airline
 | eval Average = round(Average) 
@@ -390,8 +401,9 @@
         <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
         <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
         <option name="charting.legend.mode">standard</option>
-        <option name="charting.legend.placement">right</option>
+        <option name="charting.legend.placement">bottom</option>
         <option name="charting.lineWidth">2</option>
+        <option name="charting.seriesColors">[0x05668D,0x028090,0x00A896,0x02C39A,0xF0F3BD]</option>
         <option name="refresh.display">progressbar</option>
         <option name="trellis.enabled">0</option>
         <option name="trellis.scales.shared">1</option>
@@ -401,7 +413,7 @@
   </row>
   <row>
     <panel>
-      <title>Top-25 by Tail</title>
+      <title>Top-25 by Tail (FAA Registry Search)</title>
       <chart>
         <search>
           <query>index=stratux eventtype=json_log tail=* 
@@ -433,17 +445,71 @@
         <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
         <option name="charting.chart.stackMode">default</option>
         <option name="charting.chart.style">shiny</option>
-        <option name="charting.drilldown">none</option>
+        <option name="charting.drilldown">all</option>
         <option name="charting.layout.splitSeries">0</option>
         <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
         <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
         <option name="charting.legend.mode">standard</option>
         <option name="charting.legend.placement">none</option>
         <option name="charting.lineWidth">2</option>
+        <option name="charting.seriesColors">[0x05668D,0x028090,0x00A896,0x02C39A,0xF0F3BD]</option>
         <option name="refresh.display">progressbar</option>
         <option name="trellis.enabled">0</option>
         <option name="trellis.scales.shared">1</option>
         <option name="trellis.size">medium</option>
+        <drilldown>
+          <link target="_blank">https://registry.faa.gov/aircraftinquiry/NNum_Results.aspx?NNumbertxt=$click.value$</link>
+        </drilldown>
+      </chart>
+    </panel>
+    <panel>
+      <title>Top-25 by Tail (Radarbox24 Search)</title>
+      <chart>
+        <search>
+          <query>index=stratux eventtype=json_log tail=* 
+| sort - count 
+| top limit=25 tail
+| rename tail as "Tail" count as "Count"</query>
+          <earliest>$field1.earliest$</earliest>
+          <latest>$field1.latest$</latest>
+          <sampleRatio>1</sampleRatio>
+        </search>
+        <option name="charting.axisLabelsX.majorLabelStyle.overflowMode">ellipsisNone</option>
+        <option name="charting.axisLabelsX.majorLabelStyle.rotation">0</option>
+        <option name="charting.axisTitleX.visibility">visible</option>
+        <option name="charting.axisTitleY.visibility">visible</option>
+        <option name="charting.axisTitleY2.visibility">visible</option>
+        <option name="charting.axisX.abbreviation">none</option>
+        <option name="charting.axisX.scale">linear</option>
+        <option name="charting.axisY.abbreviation">none</option>
+        <option name="charting.axisY.scale">linear</option>
+        <option name="charting.axisY2.abbreviation">none</option>
+        <option name="charting.axisY2.enabled">0</option>
+        <option name="charting.axisY2.scale">inherit</option>
+        <option name="charting.chart">column</option>
+        <option name="charting.chart.bubbleMaximumSize">50</option>
+        <option name="charting.chart.bubbleMinimumSize">10</option>
+        <option name="charting.chart.bubbleSizeBy">area</option>
+        <option name="charting.chart.nullValueMode">gaps</option>
+        <option name="charting.chart.showDataLabels">none</option>
+        <option name="charting.chart.sliceCollapsingThreshold">0.01</option>
+        <option name="charting.chart.stackMode">default</option>
+        <option name="charting.chart.style">shiny</option>
+        <option name="charting.drilldown">all</option>
+        <option name="charting.layout.splitSeries">0</option>
+        <option name="charting.layout.splitSeries.allowIndependentYRanges">0</option>
+        <option name="charting.legend.labelStyle.overflowMode">ellipsisMiddle</option>
+        <option name="charting.legend.mode">standard</option>
+        <option name="charting.legend.placement">none</option>
+        <option name="charting.lineWidth">2</option>
+        <option name="charting.seriesColors">[0x05668D,0x028090,0x00A896,0x02C39A,0xF0F3BD]</option>
+        <option name="refresh.display">progressbar</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+        <drilldown>
+          <link target="_blank">https://www.radarbox24.com/data/flights/$click.value$</link>
+        </drilldown>
       </chart>
     </panel>
   </row>
