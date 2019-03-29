@@ -11,7 +11,10 @@ This is __not__ the codebase for the ADS-B receiver Stratux, that can be found [
     ```
     scp pi@192.168.10.1:/var/log/stratux.log <directory_of_your_inputs.conf_monitor>.
     ```
-3. Point your file input monitor at your data folder; select "*Stratux*" as the sourcetype.
+3. Point your file input monitor at your data folder; select "*Stratux*" as the sourcetype. This can be done directly to indexes.conf.
+    ```
+    [monitor://<your>\<path>\<to logs>\stratux.log]
+    ```
 4. Install the app.
 
 # Install

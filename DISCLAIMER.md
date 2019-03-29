@@ -1,0 +1,1 @@
+The "Canadian_Civil_Aircraft_Register.csv" data file is a copy of an official Transport Canada work and was not produced in affiliation with, or with the endorsement of Transport Canada.

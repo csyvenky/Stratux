@@ -1,0 +1,23 @@
+<dashboard>
+  <label>3D Scatter Beta</label>
+  <row>
+    <panel>
+      <title>3D Scatter Beta</title>
+      <viz type="scatterplot3d_app.scatter3d">
+        <search>
+          <query>index="stratux" sourcetype="Stratux" (altitude&gt;50 AND speed&gt;50) (vvel &gt; 25 OR vvel &lt; 5000)
+| regex tail = "([a-zA-Z-&amp;0-9]){6,}" 
+| rename vvel as "Vertical Velocity" speed as "Speed" altitude as "Altitude"
+| table tail "Speed" "Vertical Velocity" "Altitude"</query>
+          <earliest>@d</earliest>
+          <latest>now</latest>
+          <sampleRatio>10000</sampleRatio>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="trellis.enabled">0</option>
+        <option name="trellis.scales.shared">1</option>
+        <option name="trellis.size">medium</option>
+      </viz>
+    </panel>
+  </row>
+</dashboard>
