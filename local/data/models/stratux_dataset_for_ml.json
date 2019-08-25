@@ -1,0 +1,195 @@
+{
+    "modelName": "stratux_dataset_for_ml",
+    "displayName": "stratux_dataset_for_ml",
+    "description": "",
+    "objectSummary": {
+        "Event-Based": 0,
+        "Transaction-Based": 0,
+        "Search-Based": 2
+    },
+    "objects": [
+        {
+            "objectName": "base_dataset",
+            "displayName": "base_dataset",
+            "parentName": "BaseSearch",
+            "comment": "",
+            "fields": [
+                {
+                    "fieldName": "speed",
+                    "owner": "base_dataset",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "speed",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "altitude",
+                    "owner": "base_dataset",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "altitude",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "date_hour",
+                    "owner": "base_dataset",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "date_hour",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "date_mday",
+                    "owner": "base_dataset",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "date_mday",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "date_year",
+                    "owner": "base_dataset",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "date_year",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "track",
+                    "owner": "base_dataset",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "track",
+                    "comment": ""
+                },
+                {
+                    "fieldName": "vvel",
+                    "owner": "base_dataset",
+                    "type": "number",
+                    "fieldSearch": "",
+                    "required": false,
+                    "multivalue": false,
+                    "hidden": false,
+                    "editable": true,
+                    "displayName": "vvel",
+                    "comment": ""
+                }
+            ],
+            "calculations": [
+                {
+                    "outputFields": [
+                        {
+                            "fieldName": "month",
+                            "owner": "base_dataset",
+                            "type": "number",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": false,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "month",
+                            "comment": ""
+                        }
+                    ],
+                    "calculationID": "ovlkmmzznl",
+                    "owner": "base_dataset",
+                    "editable": true,
+                    "comment": "",
+                    "calculationType": "Eval",
+                    "expression": "case(date_month==\"january\",0,\ndate_month==\"february\",1,\ndate_month==\"march\",2,\ndate_month==\"april\",3,\ndate_month==\"may\",4,\ndate_month==\"june\",5,\ndate_month==\"july\",6,\ndate_month==\"august\",7,\ndate_month==\"september\",8,\ndate_month==\"october\",9,\ndate_month==\"november\",10,\ndate_month==\"december\",11)"
+                },
+                {
+                    "outputFields": [
+                        {
+                            "fieldName": "week_day",
+                            "owner": "base_dataset",
+                            "type": "number",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": false,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "week_day",
+                            "comment": ""
+                        }
+                    ],
+                    "calculationID": "op1pjcp9ume",
+                    "owner": "base_dataset",
+                    "editable": true,
+                    "comment": "",
+                    "calculationType": "Eval",
+                    "expression": "case(date_wday==\"sunday\",0,\ndate_wday==\"monday\",1,\ndate_wday==\"tuesday\",2,\ndate_wday==\"wednesday\",3,\ndate_wday==\"thursday\",4,\ndate_wday==\"friday\",5,\ndate_wday==\"saturday\",6)"
+                },
+                {
+                    "outputFields": [
+                        {
+                            "fieldName": "on_ground",
+                            "owner": "base_dataset",
+                            "type": "number",
+                            "fieldSearch": "",
+                            "required": false,
+                            "multivalue": false,
+                            "hidden": false,
+                            "editable": true,
+                            "displayName": "on_ground",
+                            "comment": ""
+                        }
+                    ],
+                    "calculationID": "x9t4u7fd5om",
+                    "owner": "base_dataset",
+                    "editable": true,
+                    "comment": "",
+                    "calculationType": "Eval",
+                    "expression": "case(onground==\"false\",0,\nonground==\"true\",1)"
+                }
+            ],
+            "constraints": [],
+            "lineage": "base_dataset",
+            "baseSearch": "index=stratux eventtype=json_log\n| xmlkv"
+        },
+        {
+            "objectName": "gt_zero_alitude_speed",
+            "displayName": "gt_zero_alitude_speed",
+            "parentName": "base_dataset",
+            "comment": "",
+            "fields": [],
+            "calculations": [],
+            "constraints": [
+                {
+                    "search": "altitude > 0 AND speed > 0",
+                    "owner": "base_dataset.gt_zero_alitude_speed"
+                }
+            ],
+            "lineage": "base_dataset.gt_zero_alitude_speed",
+            "baseSearch": ""
+        }
+    ],
+    "objectNameList": [
+        "base_dataset",
+        "gt_zero_alitude_speed"
+    ]
+}

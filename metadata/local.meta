@@ -39,10 +39,10 @@ modtime = 1520394984.472544000
 
 [props/Stratux/EXTRACT-onground]
 access = read : [ * ], write : [ admin, power ]
-export = none
+export = system
 owner = admin
-version = 7.0.2
-modtime = 1520395004.858827000
+version = 7.3.0
+modtime = 1564861331.452493200
 
 [props/Stratux/EXTRACT-tail]
 access = read : [ * ], write : [ admin, power ]
@@ -81,10 +81,10 @@ modtime = 1520396347.962642000
 
 [props/Stratux/EXTRACT-altitude]
 access = read : [ * ], write : [ admin, power ]
-export = none
+export = system
 owner = admin
-version = 7.0.2
-modtime = 1520396735.058750000
+version = 7.3.0
+modtime = 1564861110.370405500
 
 [props/Stratux/EXTRACT-latitude]
 access = read : [ * ], write : [ admin, power ]
@@ -116,17 +116,17 @@ modtime = 1520397278.632934000
 
 [props/Stratux/EXTRACT-speed]
 access = read : [ * ], write : [ admin, power ]
-export = none
+export = system
 owner = admin
-version = 7.0.2
-modtime = 1520397285.860632000
+version = 7.3.0
+modtime = 1564861290.474018600
 
 [props/Stratux/EXTRACT-track]
 access = read : [ * ], write : [ admin, power ]
-export = none
+export = system
 owner = admin
-version = 7.0.2
-modtime = 1520397293.131686000
+version = 7.3.0
+modtime = 1564861296.658913700
 
 [props/Stratux/EXTRACT-speedvalid]
 access = read : [ * ], write : [ admin, power ]
@@ -137,10 +137,10 @@ modtime = 1520397526.287386000
 
 [props/Stratux/EXTRACT-vvel]
 access = read : [ * ], write : [ admin, power ]
-export = none
+export = system
 owner = admin
-version = 7.0.2
-modtime = 1520397533.584888000
+version = 7.3.0
+modtime = 1564861302.123421500
 
 [props/Stratux/EXTRACT-prioritystatus]
 access = read : [ * ], write : [ admin, power ]
@@ -200,27 +200,13 @@ modtime = 1550303215.284488200
 
 [views/stratux]
 owner = admin
-version = 7.2.0
-modtime = 1546404003.846417000
-
-[datamodels/Stratux_Table]
-access = read : [ * ], write : [ admin, power ]
-export = none
-owner = admin
-version = 7.1.0
-modtime = 1526928543.190849000
-
-[models/Stratux_Table]
-access = read : [ * ], write : [ admin, power ]
-export = none
-owner = admin
-version = 7.1.0
-modtime = 1526928543.222745000
+version = 7.3.0
+modtime = 1561998242.728378200
 
 [indexes/stratux]
 owner = admin
-version = 7.2.0
-modtime = 1544761127.731377300
+version = 7.3.0
+modtime = 1564855912.152918400
 
 [inputs/monitor%3A%2F%2FC%3A%5CUsers%5Ccory%5COneDrive%5CDocuments%5CPersonal%5CData%5Cstratux.log]
 owner = admin
@@ -238,3 +224,17 @@ export = system
 owner = admin
 version = 7.2.3
 modtime = 1546813495.339765500
+
+[datamodels/stratux_dataset_for_ml]
+access = read : [ * ], write : [ admin ]
+export = system
+owner = admin
+version = 7.3.0
+modtime = 1564885579.628032300
+
+[models/stratux_dataset_for_ml]
+access = read : [ * ], write : [ admin ]
+export = system
+owner = admin
+version = 7.3.0
+modtime = 1564885579.651968600
